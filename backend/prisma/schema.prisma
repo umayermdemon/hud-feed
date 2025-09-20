@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String @id @default(uuid())
+  email       String @unique
+  password    String
+  preferences Json // stores scroll speed, categories, sources
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Bookmark  Bookmark[]
+
+  @@map("users")
+}
+
+model Post {
+  id       String  @id @default(uuid())
+  source   String
+  title    String
+  url      String  @unique
+  content  String?
+  metaData Json // likes, comments, score,upVotes
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Bookmark  Bookmark[]
+
+  @@map("posts")
+}
+
+model Bookmark {
+  id               String    @id @default(uuid())
+  userId           String
+  postId           String
+  resurfacedCount  Int       @default(0)
+  lastResurfacedAt DateTime?
+
+  user User @relation(references: [id], fields: [userId])
+  post Post @relation(references: [id], fields: [postId])
+
+  createdAt DateTime @default(now())
+
+  @@map("bookmarks")
+}
