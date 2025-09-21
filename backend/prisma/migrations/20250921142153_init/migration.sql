@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "public"."users" (
+CREATE TABLE "hello-prisma"."users" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE "public"."users" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."posts" (
+CREATE TABLE "hello-prisma"."posts" (
     "id" TEXT NOT NULL,
     "source" TEXT NOT NULL,
     "title" TEXT NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE "public"."posts" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."bookmarks" (
+CREATE TABLE "hello-prisma"."bookmarks" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "postId" TEXT NOT NULL,
@@ -37,13 +37,13 @@ CREATE TABLE "public"."bookmarks" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "public"."users"("email");
+CREATE UNIQUE INDEX "users_email_key" ON "hello-prisma"."users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "posts_url_key" ON "public"."posts"("url");
+CREATE UNIQUE INDEX "posts_url_key" ON "hello-prisma"."posts"("url");
 
 -- AddForeignKey
-ALTER TABLE "public"."bookmarks" ADD CONSTRAINT "bookmarks_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "hello-prisma"."bookmarks" ADD CONSTRAINT "bookmarks_userId_fkey" FOREIGN KEY ("userId") REFERENCES "hello-prisma"."users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."bookmarks" ADD CONSTRAINT "bookmarks_postId_fkey" FOREIGN KEY ("postId") REFERENCES "public"."posts"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "hello-prisma"."bookmarks" ADD CONSTRAINT "bookmarks_postId_fkey" FOREIGN KEY ("postId") REFERENCES "hello-prisma"."posts"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
